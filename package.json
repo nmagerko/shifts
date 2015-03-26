@@ -1,0 +1,19 @@
+{
+  "name": "shifts-api",
+  "version": "0.0.1",
+  "description": "An API for handling an organization's shifts",
+  "author": "Nick Magerko <nmagerko@gmail.com>",
+  "dependencies": {
+    "express": "4.x.x",
+    "express-jwt": "2.x.x",
+    "body-parser": "*",
+    "bcryptjs": "*",
+    "moment": "*",
+    "lodash": "*",
+    "mongoose": "*",
+    "mongoose-validators": "*",
+    "mongoose-unique-validator": "*",
+    "mongoose-timestamp": "*"
+  },
+  "private": true
+}
