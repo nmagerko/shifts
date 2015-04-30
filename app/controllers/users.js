@@ -1,6 +1,7 @@
 var _         = require('lodash');
 var models    = require('../models');
 var utils     = require('./utils');
+var errors    = require('../errors');
 
 module.exports = {
   create: function(req, res, next) {
@@ -10,13 +11,7 @@ module.exports = {
 
     if(params.password !== params.confirmedPassword) {
       return res.status(400).send({
-        errors: {
-          title: 'User validation failed',
-          status: 'PreSaveValidationError',
-          detail: {
-            password: "Passwords do not match"
-          }
-        }
+        errors: errors.PreSaveValidationError.throw({ password: "Passwords do not match" })
       });
     }
 
@@ -27,8 +22,8 @@ module.exports = {
       if(err) {
         return res.status(400).send({
           errors: {
-            title: err.message,
-            status: err.name,
+            title: err.name,
+            status: err.message,
             detail: utils.formatErrors(err)
           }
         });

@@ -42,11 +42,13 @@ userSchema.plugin(uniqueValidator, { message: '{VALUE} is already registered' })
 userSchema.plugin(timestamps);
 
 userSchema.methods.hashPassword = function() {
-  this.password = bcrypt.hashSync(this.password, 8);
+  if( this.password )
+    this.password = bcrypt.hashSync(this.password, 8);
 };
 
 userSchema.methods.passwordValidFor = function(rawPassword) {
-  return bcrypt.compareSync(rawPassword, this.password);
+  if( rawPassword ) 
+    return bcrypt.compareSync(rawPassword, this.password);
 };
 
 userSchema.methods.serialize = function() {
