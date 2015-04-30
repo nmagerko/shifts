@@ -1,7 +1,7 @@
 var utils = require('./utils');
 
-var errorTitle = "User validation failed";
-var errorStatus = "PreSaveValidationError";
+var errorTitle = "User not found";
+var errorStatus = "UserNotFoundError";
 
 module.exports = {
 	throw: function(detail) {

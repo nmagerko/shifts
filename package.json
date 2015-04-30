@@ -15,5 +15,10 @@
     "mongoose-unique-validator": "*",
     "mongoose-timestamp": "*"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-express-server": "~0.5.1",
+    "grunt-contrib-watch": "~0.6.1"
+  }
 }

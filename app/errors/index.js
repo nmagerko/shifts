@@ -1,3 +1,5 @@
 module.exports = {
-	PreSaveValidationError	: require('./PreSaveValidationError')
+	PreSaveValidationError	: require('./PreSaveValidationError'),
+	UserNotFoundError		: require('./UserNotFoundError'),
+	utils 					: require('./utils')
 };
