@@ -1,7 +1,7 @@
 var utils = require('./utils');
 
 var errorTitle = "Invalid credentials";
-var errorStatus = "AuthorizationError";
+var errorStatus = "AuthenticationError";
 
 module.exports = {
 	throw: function(detail) {

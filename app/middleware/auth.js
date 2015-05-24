@@ -14,10 +14,10 @@ module.exports = {
 				return res.status(400).json(errors.utils.throwRawError(err.name, err.message, errors.utils.formatRawError(err)));
 			if (_.isEmpty(user)) 
 				return res.status(404).json(errors.UserNotFoundError.throw({
-                	username: "Could not find user identified by " + username
+                	username: "Could not find user identified by " + params.username
             	}));
 			if (!user.passwordValidFor(params.password))
-				return res.status(401).json(errors.AuthorizationError.throw({
+				return res.status(401).json(errors.AuthenticationError.throw({
 					password: "Invalid password"
 				}));
 
@@ -29,8 +29,8 @@ module.exports = {
 	verify: function(req, res, next){
 		token = req.headers.authorization;
 		if(!token)
-			return res.status(401).json(errors.AuthorizationError.throw({
-				message: "Missing authorization header"
+			return res.status(401).json(errors.AuthenticationError.throw({
+				message: "Authentication required"
 			}));
 
 		jwt.verify(token, settings.secret, settings.jwt, function(err, decoded){

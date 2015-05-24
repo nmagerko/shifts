@@ -1,5 +1,5 @@
 module.exports = {
-	AuthorizationError		: require('./AuthorizationError'),
+	AuthenticationError		: require('./AuthenticationError'),
 	PreSaveValidationError	: require('./PreSaveValidationError'),
 	UserNotFoundError		: require('./UserNotFoundError'),
 	utils 					: require('./utils')
