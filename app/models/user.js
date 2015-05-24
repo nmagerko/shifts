@@ -4,6 +4,8 @@ var uniqueValidator = require('mongoose-unique-validator');
 var timestamps = require('mongoose-timestamp');
 var bcrypt = require('bcryptjs');
 
+var availableRoles = ["ADMINISTRATOR", "MANAGER", "WORKER"]
+
 var userSchema = mongoose.Schema({
   email         : {
                     type: String,
@@ -30,6 +32,11 @@ var userSchema = mongoose.Schema({
                     type: String,
                     required: 'Last name is required',
                     validate: [validators.isAlpha(), validators.isLength(2, 150)]
+                  },
+  role          : {
+                    type: String,
+                    required: 'A role is required',
+                    validate: validators.isIn({ message: 'Available roles are ' + availableRoles.join(', ') }, availableRoles)
                   },
   isActive      : {
                     type: Boolean,

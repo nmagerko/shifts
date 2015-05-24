@@ -5,7 +5,6 @@
   "author": "Nick Magerko <nmagerko@gmail.com>",
   "dependencies": {
     "express": "4.x.x",
-    "express-jwt": "2.x.x",
     "body-parser": "*",
     "bcryptjs": "*",
     "moment": "*",
@@ -13,7 +12,11 @@
     "mongoose": "*",
     "mongoose-validators": "*",
     "mongoose-unique-validator": "*",
-    "mongoose-timestamp": "*"
+    "mongoose-timestamp": "*",
+    "passport": "*",
+    "jwt-simple": "*",
+    "passport-local": "*",
+    "passport-jwt": "*"
   },
   "private": true,
   "devDependencies": {

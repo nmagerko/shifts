@@ -3,7 +3,7 @@ var models = require('../models');
 var errors = require('../errors');
 module.exports = {
     create: function(req, res, next) {
-        var availableParams = ['username', 'email', 'password', 'confirmedPassword', 'firstName', 'lastName']
+        var availableParams = ['username', 'email', 'password', 'confirmedPassword', 'firstName', 'lastName', 'role']
         var params = _.pick(req.body, availableParams);
         if (params.password !== params.confirmedPassword) {
             return res.status(400).send(errors.PreSaveValidationError.throw({
