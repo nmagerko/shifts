@@ -13,10 +13,7 @@
     "mongoose-validators": "*",
     "mongoose-unique-validator": "*",
     "mongoose-timestamp": "*",
-    "passport": "*",
-    "jwt-simple": "*",
-    "passport-local": "*",
-    "passport-jwt": "*"
+    "jsonwebtoken": "*",
   },
   "private": true,
   "devDependencies": {
