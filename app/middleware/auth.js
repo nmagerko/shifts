@@ -47,7 +47,7 @@ module.exports = {
 		});		
 	},
 
-	authorize: function(roles, req, res, next) {
+	authorize: function(roles) {
 		return function(req, res, next){
 			if(_.contains(roles, req.user.role)){
 				req.authorized = true;
