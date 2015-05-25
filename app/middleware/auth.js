@@ -26,12 +26,15 @@ module.exports = {
 		});
 	},
 	
-	verify: function(req, res, next){
+	verify: function(req, res, next, required){
 		token = req.headers.authorization;
-		if(!token)
+		if(!token) {
+			if(!required) 
+				next();
 			return res.status(401).json(errors.AuthenticationError.throw({
 				message: "Authentication required"
 			}));
+		}
 
 		jwt.verify(token, settings.secret, settings.jwt, function(err, decoded){
 			if(err)

@@ -10,16 +10,15 @@ var app = express();
 var router = express.Router();
 var insecurePaths = ['/', '/users', '/auth/authenticate'];
 
-function secure(req, res, next) {
-	if(_.contains(insecurePaths, req.path)) return next();
-	return middleware.auth.verify(req, res, next);
-}
-
 // open mongodb connection
 mongoose.connect('mongodb://' + settings.mongodb.host + '/' + settings.mongodb.database);
 
 // define routes
-router.all('*', secure);
+// ensure that all are secure
+router.all('*', function (req, res, next) {
+	if(_.contains(insecurePaths, req.path)) return middleware.auth.verify(req, res, next, false);
+	return middleware.auth.verify(req, res, next);
+});
 
 router.post('/auth/authenticate', middleware.auth.authenticate, controllers.auth.authenticate);
 
