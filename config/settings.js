@@ -11,6 +11,7 @@ var settings = {
 	expiresInMinutes	: 60 * 24,
 	algorithm 			: "HS256"
   },
+  roles		 : ['ADMINISTRATOR', 'MANAGER', 'WORKER'],
   mongodb    : {
     host     : "127.0.0.1",
     database : "shifts-backend"

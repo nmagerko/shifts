@@ -1,9 +1,14 @@
 var _ = require('lodash');
 var models = require('../models');
 var errors = require('../errors');
+
+function isOwnerVerified(req, res){
+    return (req.authorized || req.user.username === req.params.username)
+}
+
 module.exports = {
     create: function(req, res, next) {
-        var availableParams = ['username', 'email', 'password', 'confirmedPassword', 'firstName', 'lastName', 'role']
+        var availableParams = ['username', 'email', 'password', 'confirmedPassword', 'firstName', 'lastName']
         var params = _.pick(req.body, availableParams);
         if (params.password !== params.confirmedPassword) {
             return res.status(400).json(errors.PreSaveValidationError.throw({
@@ -11,6 +16,7 @@ module.exports = {
             }));
         }
         var newUser = models.User(params);
+        newUser.role = 'WORKER';
         newUser.hashPassword();
         return newUser.save(function(err) {
             if (err) return res.status(400).json(errors.utils.throwRawError(err.name, err.message, errors.utils.formatRawError(err)));
@@ -18,6 +24,11 @@ module.exports = {
         });
     },
     retrieve: function(req, res, next) {
+        if (!isOwnerVerified(req, res))
+            return res.status(401).json(errors.AuthorizationError.throw({
+                message: "You are not authorized to access this resource"
+            }));
+
         var username = req.params.username;
         models.User.findOne({
             username: username
@@ -30,6 +41,11 @@ module.exports = {
         });
     },
     update: function(req, res, next) {
+        if (!isOwnerVerified(req, res))
+            return res.status(401).json(errors.AuthorizationError.throw({
+                message: "You are not authorized to access this resource"
+            }));
+
         var username = req.params.username;
         var availableParams = ['email', 'firstName', 'lastName']
         var params = _.pick(req.body, availableParams);

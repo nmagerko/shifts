@@ -3,8 +3,9 @@ var validators = require('mongoose-validators');
 var uniqueValidator = require('mongoose-unique-validator');
 var timestamps = require('mongoose-timestamp');
 var bcrypt = require('bcryptjs');
+var settings = require('../../config/settings');
 
-var availableRoles = ["ADMINISTRATOR", "MANAGER", "WORKER"]
+var availableRoles = settings.roles;
 
 var userSchema = mongoose.Schema({
   email         : {
@@ -64,6 +65,7 @@ userSchema.methods.serialize = function() {
     email       : this.email,
     firstName   : this.firstName,
     lastName    : this.lastName,
+    role        : this.role,
     isActive    : this.isActive,
     createdAt   : this.createdAt,
     updatedAt   : this.updatedAt
