@@ -30,7 +30,7 @@ module.exports = {
 		token = req.headers.authorization;
 		if(!token) {
 			if(!required) 
-				next();
+				return next();
 			return res.status(401).json(errors.AuthenticationError.throw({
 				message: "Authentication required"
 			}));
@@ -41,8 +41,12 @@ module.exports = {
 				return res.status(400).json(errors.utils.throwRawError(err.message, err.name, errors.utils.formatRawError(err)));
 
 			models.User.findOne({ username: decoded.sub }, function(err, user){
-				if (err) 
+				if(err) 
 					return res.status(400).json(errors.utils.throwRawError(err.name, err.message, errors.utils.formatRawError(err)));
+				if(!user.isActive)
+					return res.status(403).json(errors.InactiveUserError.throw({
+						message: "Your account is inactive. Please contact your manager for assistance."
+					}));
 
 				req.user = user;
 				return next();
