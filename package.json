@@ -13,7 +13,7 @@
     "mongoose-validators": "*",
     "mongoose-unique-validator": "*",
     "mongoose-timestamp": "*",
-    "jsonwebtoken": "*",
+    "jsonwebtoken": "*"
   },
   "private": true,
   "devDependencies": {

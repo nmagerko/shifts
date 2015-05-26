@@ -8,7 +8,7 @@ function isOwnerVerified(req, res){
 
 module.exports = {
     create: function(req, res, next) {
-        var availableParams = ['username', 'password', 'confirmedPassword', 'firstName', 'lastName']
+        var availableParams = ['username', 'password', 'confirmedPassword', 'firstName', 'lastName', 'email']
         if (req.user) {
             if (req.user.role === 'ADMINISTRATOR' || req.user.role === 'MANAGER') availableParams.push('isActive');
         }
