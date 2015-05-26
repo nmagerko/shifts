@@ -14,13 +14,14 @@ var insecurePaths = ['/', '/users', '/auth/authenticate'];
 mongoose.connect('mongodb://' + settings.mongodb.host + '/' + settings.mongodb.database);
 
 // define routes
-// ensure that all are secure
+// ensure that all are secure where necessary
 router.all('*', function (req, res, next) {
 	if(_.contains(insecurePaths, req.path)) return middleware.auth.verify(req, res, next, false);
 	return middleware.auth.verify(req, res, next);
 });
 
 router.post('/auth/authenticate', middleware.auth.authenticate, controllers.auth.authenticate);
+router.post('/auth/reset', middleware.auth.authorize(['ADMINISTRATOR']), controllers.auth.reset);
 
 router.post('/users', controllers.users.create);
 router.get('/users/:username', middleware.auth.authorize(['ADMINISTRATOR', 'MANAGER', 'OWNER']), controllers.users.retrieve);
