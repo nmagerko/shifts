@@ -56,16 +56,20 @@ module.exports = {
 
 	authorize: function(roles) {
 		return function(req, res, next){
-			if(_.contains(roles, req.user.role)){
+			error = errors.AuthorizationError.throw({
+					message: "You are not authorized to access this resource"
+			});
+			if(_.isEmpty(req.user)) {
+				return res.send(401).json(error);
+			}
+			if(!prohibited && _.contains(roles, req.user.role)){
 				req.authorized = true;
 				return next();
 			} 
 			if(_.contains(roles, "OWNER")){
 				return next();
 			}
-			return next(errors.AuthorizationError.throw({
-					message: "You are not authorized to access this resource"
-				}));
+			return res.send(401).json(error);
 		}
 	}
 }
