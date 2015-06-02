@@ -2,8 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var _ = require('lodash');
-var middleware = require('./app/middleware');
-var controllers = require('./app/controllers');
+var middleware = require('./api/middleware');
+var controllers = require('./api/controllers');
 var settings = require('./config/settings');
 
 var app = express();
@@ -27,6 +27,8 @@ router.post('/users', controllers.users.create);
 router.get('/users/:username', middleware.auth.authorize(['ADMINISTRATOR', 'MANAGER', 'OWNER']), controllers.users.retrieve);
 router.put('/users/:username', middleware.auth.authorize(['ADMINISTRATOR', 'MANAGER', 'OWNER']), controllers.users.update);
 router.delete('/users/:username', middleware.auth.authorize(['ADMINISTRATOR', 'MANAGER']), controllers.users.remove);
+
+
 
 // configure app
 app.use(bodyParser.json());
